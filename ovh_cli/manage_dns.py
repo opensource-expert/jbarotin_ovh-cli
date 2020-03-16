@@ -34,7 +34,7 @@ def get_dns_record_id(client, zoneName, subDomain, type):
                 if record["subDomain"] == subDomain and record["fieldType"] == type:
                     return recordId
 
-    raise Exception(f"{zone}, {subdomain}, {type} not found")
+    raise Exception(f"{zone}, {subDomain}, {type} not found")
 
 
 def delete_dns(client, zoneName, subDomain, type):
