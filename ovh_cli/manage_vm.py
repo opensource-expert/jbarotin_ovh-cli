@@ -11,7 +11,6 @@ import traceback
 from .secret import get_ovh_connection_setting, get_general
 
 from .apiovh import get_project_id, disp, get_instance_id
-from ansible_tools.inventory import check_instance_exists, delete_instance_to_inventory, add_line_to_inventory
 
 logging.getLogger(__name__)
 
@@ -65,9 +64,6 @@ def args(argv, inventary_file):
             if argv[3] not in flavors:
                 raise Exception("Unknown flavor")
 
-            if len(argv) > 4:
-                if check_instance_exists(inventary_file, argv[2]):
-                    raise Exception("Instance already exists in inventory file")
 
     except Exception as e:
         print(e)
