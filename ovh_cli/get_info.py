@@ -12,7 +12,7 @@ import socket
 
 from .apiovh import get_project_id, disp, get_instance_name
 
-from .secret import get_ovh_connection_setting
+from .secret import get_ovh_connection_setting, get_general
 
 logging.getLogger(__name__)
 
@@ -188,18 +188,14 @@ def usage():
         print("- " + c + " : " + cmd[c][0])
 
 
-def main():
-    argv = sys.argv
+def get_infos(project_name):
     client = ovh.Client(
         endpoint='ovh-eu',  # Endpoint of API OVH Europe (List of available endpoints)
         **get_ovh_connection_setting()
     )
 
-    if len(argv) > 2:
-        project_name = argv[2]
-
     serviceName = get_project_id(client, project_name)
-
+    argv = sys.argv
     try:
         cmd[argv[1]]
     except (KeyError, IndexError):
@@ -208,6 +204,10 @@ def main():
 
     cmd[argv[1]][1](client, serviceName)
 
+
+def main():
+    config = get_general()
+    get_infos(config["project_name"])
 
 if __name__ == "__main__":
     main()
